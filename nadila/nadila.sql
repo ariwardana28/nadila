@@ -78,7 +78,7 @@ CREATE TABLE `detail_penjualans` (
   `created_at` date DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `status` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_user` int(11) NOT NULL DEFAULT current_timestamp(),
+  `id_user` int(11) NOT NULL,
   `tanggal` varchar(225) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
