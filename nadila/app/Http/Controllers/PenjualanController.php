@@ -20,7 +20,7 @@ class PenjualanController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(){
         $penjualan = Penjualan::orderBy('tanggal', 'desc')->get();
         $DetailPenjualan = DetailPenjualan::orderBy('tanggal', 'desc')->get();
@@ -53,27 +53,27 @@ class PenjualanController extends Controller
                 $detail_penjualan = new DetailPenjualan();
                 $menu = Menu::where('id', $input['id_menu'][$key])->first();
                 $detail_penjualan->id_penjualan = $penjualan->id;
-              
+
                 $detail_penjualan->id_menu = $input['id_menu'][$key];;
-                $detail_penjualan->id_user = $input['id_user'][$key];;
+                $detail_penjualan->id_user = $input['id_user'];
                 $detail_penjualan->tanggal =  $input['date'][$key];;
                 $detail_penjualan->status =  $input['bay'][$key];;
                 // $detail_penjualan->status = $input['status'][$key];;
-                
+
                 $detail_penjualan->qty = $input['qty'][$key];
                 $detail_penjualan->subtotal = $input['subtotal'][$key];
                 $detail_penjualan->save();
-                
+
             }
             $result = $penjualan->id;
             DB::commit();
        } catch (Exception $e) {
            DB::rollBack();
        }
-      
-       
+
+
        // dd( $result);
-      
+
        //return redirect(route('pembelians.index'));
        return redirect(route('penjualan.show', $result));
     }

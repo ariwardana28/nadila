@@ -116,26 +116,6 @@
                         <div class="card-body col-md-12" style="overflow: auto;max-height: 450px;">
                             <form action="{{route('penjualan.store')}}" enctype="multipart/form-data" method="POST">
                                 @csrf
-                                {{--<table class="table table-borderless table-responsive table-sm" >
-                                    <thead>
-                                    <tr>
-                                        <th style="font-size: 11px">Nama : </th>
-                                        <th style="font-size: 11px">Meja : </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="text" value="{{ Auth::user()->name }}" style="font-size: 11px" class="form-control" readonly>
-                                            <input type="hidden" value="{{ Auth::user()->id }}" style="font-size: 11px"class="form-control" name="id_user">
-                                            <input type="text" value="{{$now}}" style="font-size: 11px"class="form-control" name="tanggal">
-                                        </td>
-                                        <td>
-                                            <input type="number" name="meja" style="font-size: 11px" class="form-control">
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>--}}
                                 @foreach ($menu as $item)
                                     <div class="card" style="float: left; margin-right:10px; margin-bottom:20px;width:30%" >
                                         <div class="card-body">
@@ -152,7 +132,6 @@
                                             }
                                         </style>
                                         <div class="card-body">
-{{--                                            <form action="" method="POST">--}}
                                                 <table class="table table-sm table-borderless table-responsive">
                                                     <tr class="float-left">
                                                         <td style="font-size: 11px;">Nama</td>
@@ -162,7 +141,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr class="float-left">
-                                                        <input name="_id_barang[]" type="hidden" id="id_brg" value="{{$item->id}}">
+                                                        <input name="_id_barang[]" type="hidden" id="id_brg_{{$item->id}}" value="{{$item->id}}">
                                                         <input type="hidden" name="harga_jual" id="price_{{$item->id}}" value="{{$item->harga}}">
                                                         <input type="hidden" class="form-control " id="subtotal">
 
@@ -195,35 +174,9 @@
                                                         <div class="btn btn-secondary btn-sm btn-add-produk" id="{{$item->id}}">Tambah</div>
                                                     </td>
                                                 </table>
-{{--                                            </form>--}}
                                         </div>
                                     </div>
                                 @endforeach
-                                {{--<table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <td style="font-size: 11px">Nama</td>
-                                        <td style="font-size: 11px">Harga</td>
-                                        <td style="font-size: 11px">Qty</td>
-                                        <td style="font-size: 11px">Subtotal</td>
-                                        <td style="font-size: 11px">Action</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody  id="daftar-penjualan" class="as">
-
-                                    </tbody>
-                                    <tr>
-                                        <td colspan="2"></td>
-                                        <td style="font-size: 11px">Total</td>
-                                        <td colspan="2">
-                                            <input type="number" min="0" style="font-size: 11px" readonly name="total" class="form-control total" id="total">
-                                        </td>
-                                    </tr>
-                                </table>--}}
-                                <br>
-
-                                <br>
-                                {{--<input type="submit" value="Pesan" class="btn btn-success">--}}
                             </form>
                         </div>
                     </div>
@@ -246,7 +199,7 @@
                 $('#subtotal').val(parseInt($('#price_'+(index+1)).val())*parseInt($('#qty_'+(index+1)).val()));
                 $('#qty_'+(index+1)).val(parseInt($('#qty_'+(index+1)).val()));
                 $("#daftar-penjualan").append('<tr>'+
-                    '<td><input type="hidden" readonly class="form-control" name="id_menu[]" value="'+$('#id_brg').val()+'">'+
+                    '<td><input type="hidden" readonly class="form-control" name="id_menu[]" value="'+$('#id_brg_'+(index+1)).val()+'">'+
                     '<input type="text" style="font-size: 11px" readonly class="form-control" name="" value="'+$('#nama_'+(index+1)).text()+'"><input type="hidden" style="font-size: 11px" readonly class="form-control" name="date[]" value="<?php echo $now;?>"><input type="hidden" style="font-size: 11px" readonly class="form-control" name="bay[]" value="belum bayar"> </td>'+
                     '<td><input type="text" style="font-size: 11px" readonly class=" form-control" name="harga[]" value="'+$('#price_'+(index+1)).val()+'"></td>'+
                     '<td> <input type="number" style="font-size: 11px" readonly min="0"  name="qty[]" class="form-control qty" id="qty" value="'+$('#qty_'+(index+1)).val()+'"></td>'+
