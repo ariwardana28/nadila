@@ -7,12 +7,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>The Aditii Website Template | Accessories :: w3layouts</title>
+<title>PHH Market</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
 <link href="{{asset('web/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
-<script src="{{asset('web/js/jquery.min.js')}}"></script> 
+<script src="{{asset('web/js/jquery.min.js')}}"></script>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 <!-- start top_js_button -->
@@ -20,7 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script type="text/javascript" src="{{asset('js/easing.js')}}"></script>
    <script type="text/javascript">
 		jQuery(document).ready(function($) {
-			$(".scroll").click(function(event){		
+			$(".scroll").click(function(event){
 				event.preventDefault();
 				$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
 			});
@@ -37,12 +37,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="h_icon">
             <ul class="icon1 sub-icon1">
                 <?php $total=0;?>
-                
+
                 @foreach ($bayar as $item)
                     @if ($item->id_user == Auth::user()->id)
                         @foreach ($menu as $mn)
                             @if ($item->id_produk == $mn->id)
-                                <?php $total += $item->qty*$mn->harga ?>  
+                                <?php $total += $item->qty*$mn->harga ?>
                             @endif
                         @endforeach
                     @endif
@@ -59,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <th>Total</th>
                                 <th>Aksi</th>
                             </tr>
-                        
+
                             @foreach ($bayar as $item)
                                 @if ($item->id_user == Auth::user()->id)
                                     @foreach ($menu as $mn)
@@ -79,11 +79,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                     </form>
                                                     {{-- <a href="" class="btn btn-danger btn-sm">-</a> --}}
                                                 </td>
-                                            </tr>            
+                                            </tr>
                                         @endif
                                     @endforeach
                                 @endif
-                               
+
                             @endforeach
                             <tr>
                                 <td colspan="5">
@@ -97,7 +97,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </li>
             </ul>
             </div>
-            
+
             <div class="clear"></div>
         </div>
     </div>
@@ -123,7 +123,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </ul>
             </div>
             <div class="top-nav">
-                <nav class="nav">	        	
+                <nav class="nav">
                     <a href="#" id="w3-menu-trigger"> </a>
                         <ul class="nav-list" style="">
                             <li class="nav-item"><a class="active" href="index.html">Pesan</a></li>
@@ -132,7 +132,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </nav>
                 <div class="clear"> </div>
                 <script src="js/responsive.menu.js"></script>
-            </div>	
+            </div>
         <div class="clear"></div>
     </div>
 </div>
@@ -142,7 +142,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                   THH
+                    Konfirmasi Pembayaran
                     <div style="float: right">
                         <a href="{{url('/penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
                     </div>
@@ -154,8 +154,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    
+
+
                     <table class="table table-sm table-borderless">
                         @foreach ($penjualan as $item)
                             <tr>
@@ -183,7 +183,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </tr>
                             @endif
 
-                           
+
                         @endforeach
                     </table>
                     <table class="table table-sm table-bordered">
@@ -217,7 +217,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         @if ($item->foto == null)
                             <form action="{{route('penjualan.bayar',$item->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="file" name="foto" id="" class="form-control" >
+                                <input type="file" name="foto" id="" class="form-control" required>
                                 <input type="hidden" name="status" id="" value="Sedang diproses" class="form-control" >
                                 <br>
                                 <input type="submit" value="Submit" class="btn btn-sm btn-success">

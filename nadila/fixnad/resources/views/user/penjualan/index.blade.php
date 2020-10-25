@@ -4,12 +4,12 @@
 <title>The Aditii Website Template | Details :: w3layouts</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'> 
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
 <link href="{{asset('web/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
 <!-- start details -->
 <link rel="stylesheet" type="text/css" href="{{asset('web/css/productviewgallery.css')}}" media="all" />
 <link href="{{asset('web/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
-<script src="{{asset('web/js/jquery.min.js')}}"></script> 
+<script src="{{asset('web/js/jquery.min.js')}}"></script>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <script type="text/javascript" src="{{asset('web/js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('web/js/cloud-zoom.1.0.3.min.js')}}"></script>
@@ -23,7 +23,7 @@
 <script type="text/javascript" src="{{asset('web/js/easing.js')}}"></script>
    <script type="text/javascript">
 		jQuery(document).ready(function($) {
-			$(".scroll").click(function(event){		
+			$(".scroll").click(function(event){
 				event.preventDefault();
 				$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
 			});
@@ -40,12 +40,12 @@
                 <div class="h_icon">
                 <ul class="icon1 sub-icon1">
                     <?php $total=0;?>
-                    
+
                     @foreach ($bayar as $item)
                         @if ($item->id_user == Auth::user()->id)
                             @foreach ($menu as $mn)
                                 @if ($item->id_produk == $mn->id)
-                                    <?php $total += $item->qty*$mn->harga ?>  
+                                    <?php $total += $item->qty*$mn->harga ?>
                                 @endif
                             @endforeach
                         @endif
@@ -62,7 +62,7 @@
                                     <th>Total</th>
                                     <th>Aksi</th>
                                 </tr>
-                            
+
                                 @foreach ($bayar as $item)
                                     @if ($item->id_user == Auth::user()->id)
                                         @foreach ($menu as $mn)
@@ -82,11 +82,11 @@
                                                         </form>
                                                         {{-- <a href="" class="btn btn-danger btn-sm">-</a> --}}
                                                     </td>
-                                                </tr>            
+                                                </tr>
                                             @endif
                                         @endforeach
                                     @endif
-                                   
+
                                 @endforeach
                                 <tr>
                                     <td colspan="5">
@@ -100,7 +100,7 @@
                     </li>
                 </ul>
                 </div>
-                
+
                 <div class="clear"></div>
             </div>
         </div>
@@ -118,15 +118,16 @@
                                                          document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
-    
+
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
                         </li>
+                        <li class="float-right"><a href="{{url('penjualan')}}">Profil</a></li> |
                     </ul>
                 </div>
                 <div class="top-nav">
-                    <nav class="nav">	        	
+                    <nav class="nav">
                         <a href="#" id="w3-menu-trigger"> </a>
                             <ul class="nav-list" style="">
                                 <li class="nav-item"><a class="active" href="index.html">Pesan</a></li>
@@ -135,7 +136,7 @@
                     </nav>
                     <div class="clear"> </div>
                     <script src="js/responsive.menu.js"></script>
-                </div>	
+                </div>
             <div class="clear"></div>
         </div>
     </div>
@@ -144,7 +145,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">PHH</div>
+                <div class="card-header">Daftar Transaksi</div>
 
                 <div class="card-body">
                     <table class="table table-sm table-bordered">
@@ -178,11 +179,11 @@
                                         <a href="{{route('penjualan.show',$item->id)}}" class="btn btn-primary btn-sm">Detail Pesanan</a>
                                     </td>
                                 </tr>
-                           
+
                                 @endif
                             @endforeach
-                           
-                         
+
+
                         </tbody>
                     </table>
                 </div>

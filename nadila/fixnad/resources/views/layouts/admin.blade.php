@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    THH
+                    PHH Market
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -42,9 +42,10 @@
                                 <a class="dropdown-item" href="{{route('laporan.index')}}">Laporan</a>
                                 <a class="dropdown-item" href="{{route('menu.index')}}">Produk Pesanan</a>
                                 <a class="dropdown-item" href="{{route('kasir.penjualan')}}">Pemesanan</a>
+                                <a class="dropdown-item" href="{{route('laporan.index.pelanggan')}}">Data Pelanggan</a>
                             </div>
                         </li>
-                        
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

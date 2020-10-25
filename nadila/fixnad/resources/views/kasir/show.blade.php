@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    PHH
+                    Detail Pemesanan
                     <div style="float: right">
                         @foreach ($penjualan as $item)
                             @if ($item->status == "Mengirim Barang")
@@ -14,19 +14,19 @@
                                     @csrf
                                     <input type="hidden" name="status" id="" value="Selesai" class="form-control" >
                                     <input type="submit" value="Selesai" class="btn btn-sm btn-success">
-                                    <a href="{{url('/penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
+                                    <a href="{{url('/kasir/penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
                                 </form>
                             @elseif($item->status == "Sedang diproses")
                                 <form action="{{route('kasir.kirim',$item->id)}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="status" id="" value="Mengirim Barang" class="form-control" >
                                     <input type="submit" value="Kirim Barang" class="btn btn-sm btn-success">
-                                    <a href="{{url('/penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
+                                    <a href="{{url('/kasir/penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
                                 </form>
                             @else
                             @endif
 
-                          
+
                     @endforeach
                     </div>
                 </div>
@@ -37,8 +37,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    
+
+
                     <table class="table table-sm table-borderless">
                         @foreach ($penjualan as $item)
                             <tr>
@@ -66,7 +66,7 @@
                                 </tr>
                             @endif
 
-                           
+
                         @endforeach
                     </table>
                     <table class="table table-sm table-bordered">
@@ -102,7 +102,7 @@
                             </tr>
                         @endforeach
                     </table>
-                 
+
                 </div>
             </div>
         </div>

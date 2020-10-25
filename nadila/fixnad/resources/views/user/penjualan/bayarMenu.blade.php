@@ -12,7 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
 <link href="{{asset('web/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
-<script src="{{asset('web/js/jquery.min.js')}}"></script> 
+<script src="{{asset('web/js/jquery.min.js')}}"></script>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 <!-- start top_js_button -->
@@ -20,7 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script type="text/javascript" src="{{asset('js/easing.js')}}"></script>
    <script type="text/javascript">
 		jQuery(document).ready(function($) {
-			$(".scroll").click(function(event){		
+			$(".scroll").click(function(event){
 				event.preventDefault();
 				$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
 			});
@@ -42,7 +42,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     @if ($item->id_user == Auth::user()->id)
                         @foreach ($menu as $mn)
                             @if ($item->id_produk == $mn->id)
-                                <?php $total += $item->qty*$mn->harga ?>  
+                                <?php $total += $item->qty*$mn->harga ?>
                             @endif
                         @endforeach
                     @endif
@@ -59,7 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <th>Total</th>
                                 <th>Aksi</th>
                             </tr>
-                        
+
                             @foreach ($bayar as $item)
                                 @if ($item->id_user == Auth::user()->id)
                                     @foreach ($menu as $mn)
@@ -79,7 +79,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                     </form>
                                                     {{-- <a href="" class="btn btn-danger btn-sm">-</a> --}}
                                                 </td>
-                                            </tr>            
+                                            </tr>
                                         @endif
                                     @endforeach
                                 @endif
@@ -96,7 +96,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </li>
             </ul>
             </div>
-            
+
             <div class="clear"></div>
         </div>
     </div>
@@ -122,7 +122,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </ul>
             </div>
             <div class="top-nav">
-                <nav class="nav">	        	
+                <nav class="nav">
                     <a href="#" id="w3-menu-trigger"> </a>
                         <ul class="nav-list" style="">
                             <li class="nav-item"><a class="active" href="index.html">Pesan</a></li>
@@ -131,7 +131,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </nav>
                 <div class="clear"> </div>
                 <script src="js/responsive.menu.js"></script>
-            </div>	
+            </div>
         <div class="clear"></div>
     </div>
 </div>
@@ -145,18 +145,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="row justify-content-center">
                         <div class="col-md">
                             <div class="card">
-                                
+
                                 <div class="card-header">
                                     @if (isset($_GET['id']))
                                         @if ($_GET['id']=='habis')
                                         <div class="alert alert-danger" role="alert">
                                             Stok Barang Habis/Tidak Cukup
-                                        </div>        
+                                        </div>
                                         @endif
                                     @endif
                                     Bayar
                                 </div>
-                
+
                                 <div class="card-body">
                                     @if (session('status'))
                                         <div class="alert alert-success" role="alert">
@@ -168,8 +168,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     <label for="">Alamat :</label>
                                     <input type="hidden" name="tanggal" value="{{$now}}">
                                     <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
-                                    <input type="text" name="alamat" class="form-control" required>
-                                    
+                                    <input type="text" name="alamat" class="form-control" value="{{Auth::user()->alamat}}" required>
+
                                     <table class="table">
                                         <tr>
                                             <th>No</th>
@@ -182,7 +182,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         <?php $total=0;?>
                                         @foreach ($bayar as $item)
                                         @if ($item->id_user == Auth::user()->id)
-
                                         <tr>
                                             <td>{{$no++}}</td>
                                             <td>
@@ -195,13 +194,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                 <input type="hidden" name="id_menu[]" class="form-control" value="{{$item->id_produk}}" readonly>
                                             </td>
                                             <td>
-                                                <input type="text" name="qty[]" class="form-control" value="{{$item->qty}}" >
+                                                <div class="row">
+                                                    <div>
+                                                        <a href="{{route('penjualan.minQty',$item->id)}}" class="btn btn-danger mr-3"><b>-</b></a>
+                                                    </div>
+                                                    <div>
+                                                        <input id="qtyChange" type="text" name="qty[]" class="form-control" value="{{$item->qty}}" readonly>
+                                                    </div>
+                                                    <div>
+                                                        <a href="{{route('penjualan.addQty',$item->id)}}" class="btn btn-info ml-3"><b>+</b></a>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
                                                 @foreach ($menu as $mn)
                                                     @if ($item->id_produk == $mn->id)
-                                                    <?php $total += $item->qty*$mn->harga ?> 
-                                                    Rp. {{number_format($mn->harga)}}     
+                                                        Rp. {{number_format($mn->harga)}}
                                                     <input type="hidden" value="{{$item->qty*$mn->harga}}" name="subtotal[]" class="form-control" readonly>
                                                     @endif
                                                 @endforeach
@@ -209,9 +217,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             <td>
                                                 @foreach ($menu as $mn)
                                                     @if ($item->id_produk == $mn->id)
-                                                    <?php $total += $item->qty*$mn->harga ?> 
-                                                    Rp. {{number_format($item->qty*$mn->harga)}}     
-                                                    <input type="hidden" value="{{$item->qty*$mn->harga}}" name="subtotal[]" class="form-control" readonly>
+                                                    <?php $total += $item->qty*$mn->harga ?>
+                                                        Rp. {{number_format($item->qty*$mn->harga)}}
+                                                    <input id="newSub" type="hidden" value="{{$item->qty*$mn->harga}}" name="subtotal[]" class="form-control" readonly>
                                                     @endif
                                                 @endforeach
                                             </td>
@@ -225,7 +233,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             </td>
                                             <td>
                                                 Rp. {{number_format($total)}}
-                                                <input type="hidden" readonly name="total" value="{{$total}}" class="form-control" id="">
+                                                <input id="newTotal" type="hidden" readonly name="total" value="{{$total}}" class="form-control">
                                             </td>
                                         </tr>
                                         <tr>
@@ -251,4 +259,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </main>
 </body>
+{{--<script>--}}
+{{--    $("#qtyChange").on("input", function(){--}}
+{{--        // Print entered value in a div box--}}
+{{--        let harga = $("#price").val();--}}
+{{--        let qty = $(this).val();--}}
+{{--        let newSub = harga*qty;--}}
+{{--        let total = $("#newTotal").val();--}}
+{{--        console.log(harga);--}}
+{{--        $("#newSub").val(newSub);--}}
+{{--        $("#newSubTotal").text("Rp. "+newSub);--}}
+{{--    });--}}
+{{--</script>--}}
 </html>

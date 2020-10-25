@@ -43,7 +43,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">PHH</div>
+                <div class="card-header">Daftar Transaksi</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -71,18 +71,18 @@
                                         <td>{{date('d F Y', strtotime($item->tanggal))}}</td>
                                         <td>{{$item->User->name}}</td>
                                         <td>Rp. {{$item->total}}</td>
-                                    
+
                                         <td>
                                             <a href="{{route('kasir.show',$item->id)}}" class="btn btn-primary btn-sm">Detail</a>
                                         </td>
                                     </tr>
                                     @elseif($item->status == null)
-                                        
-                                    @endif  
+
+                                    @endif
                                 @endforeach
                         </tbody>
                     </table>
-                    
+
                 </div>
             </div>
         </div>

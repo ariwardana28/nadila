@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>The Aditii Website Template | Accessories :: w3layouts</title>
+<title>PHH Market</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
@@ -28,7 +28,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</script>
 </head>
 <body>
-<!-- start header -->
 <div class="header_bg">
     <div class="wrap">
         <div class="header">
@@ -36,14 +35,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <a href="index.html"><img src="{{asset('web/images/logo.png')}}" alt=""/> </a>
             </div>
             <div class="h_icon">
-            <ul class="icon1 sub-icon1">
-                <li><a class="active-icon c1" href="#"><i>Rp.0</i></a>
-                    <ul class="sub-icon1 list">
-                        <li><h3>shopping cart empty</h3><a href=""></a></li>
-                        <li><p>if items in your wishlit are missing, <a href="contact.html">contact us</a> to view them</p></li>
-                    </ul>
-                </li>
-            </ul>
             </div>
 
             <div class="clear"></div>
@@ -54,9 +45,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="wrap">
         <div class="header_sub">
             <div class="h_menu">
-                <ul class="col-lg-12">
-                    <li><a href="{{url('penjualan')}}">Pesan</a></li> |
-                    <li><a href="{{url('penjualan/create')}}">Konfirmasi</a></li> |
+                <ul>
+                    <li><a href="{{url('penjualan/create')}}">Produk</a></li> |
+                    <li><a href="{{url('penjualan')}}">Konfirmasi</a></li> |
                     <li>
                         <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -68,7 +59,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         @csrf
                                     </form>
                     </li>
-                    <li class="float-right"><a href="{{url('penjualan')}}">Profil</a></li> |
                 </ul>
             </div>
             <div class="top-nav">
@@ -76,7 +66,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <a href="#" id="w3-menu-trigger"> </a>
                         <ul class="nav-list" style="">
                             <li class="nav-item"><a class="active" href="index.html">Pesan</a></li>
-                            <li class="nav-item"><a href="sale.html">Konfirmasi</a></li>
+                            <li class="nav-item"><a href="sale.html">Transaksi</a></li>
                         </ul>
                 </nav>
                 <div class="clear"> </div>
@@ -86,9 +76,60 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                   Data Profil
+                    <div style="float: right">
+                        <a href="{{url('/penjualan/create')}}" class="btn btn-sm btn-primary">Kembali</a>
+                    </div>
+                </div>
 
-<main class="py-4">
-    @yield('content')
-</main>
-</body>
-</html>
+                <div class="card-body">
+                    <!-- Nama Field -->
+                    <div class="form-group row mb-1">
+                        <label class="col-md-3  label-control text-bold-800">Nama:</label>
+                        <div class="col-md-9">
+                            <p class="text-body">{!! $profile->name !!}</p>
+                        </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group row mb-1">
+                        <label class="col-md-3  label-control text-bold-800">Email:</label>
+                        <div class="col-md-9">
+                            <p class="text-body">{!! $profile->email !!}</p>
+                        </div>
+                    </div>
+
+                    <!-- Alamat Field -->
+                    <div class="form-group row mb-1">
+                        <label class="col-md-3  label-control text-bold-800">Alamat:</label>
+                        <div class="col-md-9">
+                            <p class="text-body">{!! $profile['alamat'] !!}</p>
+                        </div>
+                    </div>
+
+                    <!-- Tgl Lahir Field -->
+                    <div class="form-group row mb-1">
+                        <label class="col-md-3  label-control text-bold-800">Tanggal Lahir:</label>
+                        <div class="col-md-9">
+                            <p class="text-body">{!! $profile['tgl_lahir'] !!}</p>
+                        </div>
+                    </div>
+
+                    <!-- No Hp Field -->
+                    <div class="form-group row mb-1">
+                        <label class="col-md-3  label-control text-bold-800">No. Handphone:</label>
+                        <div class="col-md-9">
+                            <p class="text-body">{!! $profile['no_hp'] !!}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

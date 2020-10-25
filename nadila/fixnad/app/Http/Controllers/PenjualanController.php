@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\model\Menu;
 use App\model\Penjualan;
@@ -9,6 +10,7 @@ use App\model\Bayar;
 use App\model\DetailPenjualan;
 use Carbon\Carbon;
 use DB;
+use Auth;
 
 class PenjualanController extends Controller
 {
@@ -21,11 +23,12 @@ class PenjualanController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(){
         $penjualan = Penjualan::orderBy('tanggal', 'desc')->get();
         $DetailPenjualan = DetailPenjualan::orderBy('tanggal', 'desc')->get();
-        $bayar = Bayar::all();
+        $bayar = Bayar::where('id_user',Auth::user()->id)->get();
+        //return $bayar;
         $menu = Menu::all();
         return view('user.penjualan.index',compact('penjualan','DetailPenjualan','bayar','menu'));
     }
@@ -37,7 +40,7 @@ class PenjualanController extends Controller
         return view('user.penjualan.detail',compact('detail','bayar','menu'));
     }
     public function storeBayar(Request $request){
-      
+
         $input = $request->all();
         $bayar = new Bayar();
         if($bayar->id_produk !=null){
@@ -46,7 +49,7 @@ class PenjualanController extends Controller
             // dd($pay);
             $menus = Menu::where('id', $input['id_produk'])->first();
             if ($input['qty']> $menus->stok){
-                return redirect(url('penjualan/detail/'.$result.'?nama=habis')); 
+                return redirect(url('penjualan/detail/'.$result.'?nama=habis'));
             }
             if ($input['id_produk'] == $pay->id_produk){
                 $new_stoks = (int)$pay->qty + (int)$input['qty'];
@@ -68,14 +71,14 @@ class PenjualanController extends Controller
             $result = $input['id_produk'];
             $menus = Menu::where('id', $input['id_produk'])->first();
             if ($input['qty']> $menus->stok){
-                return redirect(url('penjualan/detail/'.$result.'?nama=habis')); 
+                return redirect(url('penjualan/detail/'.$result.'?nama=habis'));
             }
-           
+
                 $bayar->id_produk = $input['id_produk'];
                 $bayar->id_user = $input['id_user'];
                 $bayar->qty = $input['qty'];
                 $bayar->save();
-            
+
             $new_stok = (int)$menus->stok - (int)$input['qty'];
             $new = (int)$menus->harga_beli+0;
             $menus->stok = $new_stok;
@@ -91,7 +94,7 @@ class PenjualanController extends Controller
         //  dd($pay);
         $menus = Menu::where('id', $input['id_produk'])->first();
         if ($input['qty']> $menus->stok){
-             return redirect(url('penjualan/create?nama=habis')); 
+             return redirect(url('penjualan/create?nama=habis'));
         };
         if ($input['id_produk'] == $pay->id_produk){
             $new_stoks = (int)$pay->qty + (int)$input['qty'];
@@ -103,7 +106,7 @@ class PenjualanController extends Controller
             $bayar->qty = $input['qty'];
             $bayar->save();
         }
-        
+
 
          $new_stok = (int)$menus->stok - (int)$input['qty'];
          $new = (int)$menus->harga_beli+0;
@@ -111,7 +114,7 @@ class PenjualanController extends Controller
          $menus->stok = $new_stok;
          $menus->save();
 
-     
+
        return redirect(url('penjualan/create?nama=sukses'));
     }
 
@@ -152,21 +155,21 @@ class PenjualanController extends Controller
                 $detail_penjualan = new DetailPenjualan();
                 $menus = Menu::where('id', $input['id_menu'][$key])->first();
                 if ($input['qty'][$key] > $menus->stok){
-                    return redirect(url('penjualan/menuBayar?id=habis')); 
+                    return redirect(url('penjualan/menuBayar?id=habis'));
                 };
                 $menu = Menu::where('id', $input['id_menu'][$key])->first();
                 $detail_penjualan->id_penjualan = $penjualan->id;
-              
+
                 $detail_penjualan->id_menu = $input['id_menu'][$key];
                 // $detail_penjualan->id_user = $input['id_user'][$key];
                 $detail_penjualan->tanggal =  $input['tanggal'][$key];
                 // $detail_penjualan->status =  $input['status'][$key];
                 // $detail_penjualan->status = $input['status'][$key];;
-                
+
                 $detail_penjualan->qty = $input['qty'][$key];
                 $detail_penjualan->subtotal = $input['subtotal'][$key];
                 $detail_penjualan->save();
-                
+
                 // stok barang
                 $new_stok = (int)$menus->stok - (int)$input['qty'][$key];
                 $new = (int)$menus->harga_beli+0;
@@ -181,10 +184,10 @@ class PenjualanController extends Controller
        } catch (Exception $e) {
            DB::rollBack();
        }
-      
-       
+
+
        // dd( $result);
-      
+
        //return redirect(route('pembelians.index'));
        return redirect(route('penjualan.show', $result));
     }
@@ -230,7 +233,12 @@ class PenjualanController extends Controller
         $menus->stok = $new_stok;
         DB::table('bayars')->where('id',$id)->delete();
         return redirect('/penjualan/detail/'.$input['id_produk']);
-    
 
+
+     }
+
+     public function profile(){
+        $profile = User::find(Auth::user()->id);
+        return view('user.penjualan.show_profile',compact('profile'));
      }
 }

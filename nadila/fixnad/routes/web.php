@@ -46,6 +46,11 @@ Route::prefix('/penjualan')->group(function(){
     Route::post('/bayar/{id}','PenjualanController@bayar')->name('penjualan.bayar');
     Route::get('/detail/{id}','PenjualanController@detail')->name('penjualan.detail');
     Route::post('/{id}/hapus', 'PenjualanController@shapus')->name('barang.hapus');
+
+    Route::get('/addQty/{id}','BayarController@addQty')->name('penjualan.addQty');
+    Route::get('/minQty/{id}','BayarController@minQty')->name('penjualan.minQty');
+
+    Route::get('/profile','PenjualanController@profile')->name('profile');
 });
 
 Route::prefix('/admin')->group(function(){
@@ -63,10 +68,11 @@ Route::prefix('/kasir')->group(function(){
     Route::post('/penjualan/bayar/{id}', 'KasirController@bayar')->name('kasir.bayar');
     Route::post('/penjualan/kirim/{id}', 'KasirController@kirim')->name('kasir.kirim');
     Route::get('/print/{id}', 'KasirController@print')->name('kasir.print');
-    
+
 });
 
 
 Route::prefix('/laporan')->group(function(){
     Route::get('/', 'LaporanPenjualanController@index')->name('laporan.index');
+    Route::get('/data_pelanggan', 'AdminController@indexPelanggan')->name('laporan.index.pelanggan');
 });

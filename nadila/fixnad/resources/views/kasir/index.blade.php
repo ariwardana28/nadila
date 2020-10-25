@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">PHH</div>
+                <div class="card-header">Daftar Pemesanan</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -30,7 +30,11 @@
                                         <td>{{$no++}}</td>
                                         <td>{{$item->User->name}}</td>
                                         <td>
-                                            <b style="color: green">{{$item->status}}</b>
+                                            @if(empty($item->status) || $item->status == null)
+                                                <b style="color: orange">Belum dibayar</b>
+                                            @else
+                                                <b style="color: green">{{$item->status}}</b>
+                                            @endif
                                         </td>
                                         <td>
                                             <a href="{{route('kasir.show',$item->id)}}" class="btn btn-primary btn-sm">Detail</a>
