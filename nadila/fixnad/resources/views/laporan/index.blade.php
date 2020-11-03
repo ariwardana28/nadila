@@ -33,12 +33,37 @@
                             </tr>
                         </table>
                     </form>
+                    <br>
+
+
+                    {{--Search By Nama--}}
+                    <form role="form" method="get" action="{{url('/laporan')}}">
+                        <table>
+                            <tr>
+                                <td>
+                                    <label for="exampleInputEmail1">Cari by Nama</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text"  name="nama"  class="form-control datepicker" id="exampleInputEmail1" placeholder="Nama">
+                                </td>
+                                <td>
+                                    <p style="color: white">...</p>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary">Cari</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <br>
+@if(!empty($detail))
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -51,41 +76,14 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <table class="table table-sm table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Nama Customer</th>
-                                <th>Total</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no=1;?>
-                                @foreach ($detail as $item)
-                                    @if ($item->status == 'Selesai')
-                                    <tr>
-                                        <td>{{$no++}}</td>
-                                        <td>{{date('d F Y', strtotime($item->tanggal))}}</td>
-                                        <td>{{$item->User->name}}</td>
-                                        <td>Rp. {{$item->total}}</td>
-
-                                        <td>
-                                            <a href="{{route('kasir.show',$item->id)}}" class="btn btn-primary btn-sm">Detail</a>
-                                        </td>
-                                    </tr>
-                                    @elseif($item->status == null)
-
-                                    @endif
-                                @endforeach
-                        </tbody>
-                    </table>
-
+                        @include('laporan.table_laporan')
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endif
 @endsection
+
+
+

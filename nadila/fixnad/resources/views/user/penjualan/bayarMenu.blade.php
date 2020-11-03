@@ -164,91 +164,87 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         </div>
                                     @endif
                                     <form action="{{route('penjualan.store')}}" method="post">
-                @csrf
-                                    <label for="">Alamat :</label>
-                                    <input type="hidden" name="tanggal" value="{{$now}}">
-                                    <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
-                                    <input type="text" name="alamat" class="form-control" value="{{Auth::user()->alamat}}" required>
+                                        @csrf
+                                        <label for="">Alamat :</label>
+                                        <input type="hidden" name="tanggal" value="{{$now}}">
+                                        <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
+                                        <input type="text" name="alamat" class="form-control" value="{{Auth::user()->alamat}}" required>
 
-                                    <table class="table">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Barang</th>
-                                            <th>Qty</th>
-                                            <th>Harga</th>
-                                            <th>Sub Total</th>
-                                        </tr>
-                                        <?php $no=1;?>
-                                        <?php $total=0;?>
-                                        @foreach ($bayar as $item)
-                                        @if ($item->id_user == Auth::user()->id)
-                                        <tr>
-                                            <td>{{$no++}}</td>
-                                            <td>
-                                                @foreach ($menu as $mn)
-                                                    @if ($item->id_produk == $mn->id)
-                                                        {{$mn->nama}}
-                                                        <input type="hidden" value="{{$mn->nama}}" class="form-control" readonly>
-                                                    @endif
-                                                @endforeach
-                                                <input type="hidden" name="id_menu[]" class="form-control" value="{{$item->id_produk}}" readonly>
-                                            </td>
-                                            <td>
-                                                <div class="row">
-                                                    <div>
-                                                        <a href="{{route('penjualan.minQty',$item->id)}}" class="btn btn-danger mr-3"><b>-</b></a>
+                                        <table class="table">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Barang</th>
+                                                <th>Qty</th>
+                                                <th>Harga</th>
+                                                <th>Sub Total</th>
+                                            </tr>
+                                            <?php $no=1;?>
+                                            <?php $total=0;?>
+                                            @foreach ($bayar as $item)
+                                            @if ($item->id_user == Auth::user()->id)
+                                            <tr>
+                                                <td>{{$no++}}</td>
+                                                <td>
+                                                    @foreach ($menu as $mn)
+                                                        @if ($item->id_produk == $mn->id)
+                                                            {{$mn->nama}}
+                                                            <input type="hidden" value="{{$mn->nama}}" class="form-control" readonly>
+                                                        @endif
+                                                    @endforeach
+                                                    <input type="hidden" name="id_menu[]" class="form-control" value="{{$item->id_produk}}" readonly>
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div>
+                                                            <a href="{{route('penjualan.minQty',$item->id)}}" class="btn btn-danger mr-3"><b>-</b></a>
+                                                        </div>
+                                                        <div>
+                                                            <input id="qtyChange" type="text" name="qty[]" class="form-control" value="{{$item->qty}}" readonly>
+                                                        </div>
+                                                        <div>
+                                                            <a href="{{route('penjualan.addQty',$item->id)}}" class="btn btn-info ml-3"><b>+</b></a>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <input id="qtyChange" type="text" name="qty[]" class="form-control" value="{{$item->qty}}" readonly>
-                                                    </div>
-                                                    <div>
-                                                        <a href="{{route('penjualan.addQty',$item->id)}}" class="btn btn-info ml-3"><b>+</b></a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                @foreach ($menu as $mn)
-                                                    @if ($item->id_produk == $mn->id)
-                                                        Rp. {{number_format($mn->harga)}}
-                                                    <input type="hidden" value="{{$item->qty*$mn->harga}}" name="subtotal[]" class="form-control" readonly>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                @foreach ($menu as $mn)
-                                                    @if ($item->id_produk == $mn->id)
-                                                    <?php $total += $item->qty*$mn->harga ?>
-                                                        Rp. {{number_format($item->qty*$mn->harga)}}
-                                                    <input id="newSub" type="hidden" value="{{$item->qty*$mn->harga}}" name="subtotal[]" class="form-control" readonly>
-                                                    @endif
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                        @endif
+                                                </td>
+                                                <td>
+                                                    @foreach ($menu as $mn)
+                                                        @if ($item->id_produk == $mn->id)
+                                                            Rp. {{number_format($mn->harga)}}
+                                                        <input type="hidden" value="{{$item->qty*$mn->harga}}" name="harga[]" class="form-control" readonly>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    @foreach ($menu as $mn)
+                                                        @if ($item->id_produk == $mn->id)
+                                                            <?php $total += $item->qty*$mn->harga ?>
+                                                            Rp. {{number_format($item->qty*$mn->harga)}}
+                                                        <input id="newSub" type="hidden" value="{{$item->qty*$mn->harga}}" name="subtotal[]" class="form-control" readonly>
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            @endif
 
-                                        @endforeach
-                                        <tr>
-                                            <td colspan="4">
-                                                <center>Total</center>
-                                            </td>
-                                            <td>
-                                                Rp. {{number_format($total)}}
-                                                <input id="newTotal" type="hidden" readonly name="total" value="{{$total}}" class="form-control">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="5">
-                                                <center>
-                                                    <input type="submit" value="Cek Out" class="btn btn-sm btn-success">
-                                                </center>
-                                            </td>
-                                        </tr>
-                                        </form>
-                                    </table>
-
-
-
-
+                                            @endforeach
+                                            <tr>
+                                                <td colspan="4">
+                                                    <center>Total</center>
+                                                </td>
+                                                <td>
+                                                    Rp. {{number_format($total)}}
+                                                    <input id="newTotal" type="hidden" readonly name="total" value="{{$total}}" class="form-control">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <center>
+                                                        <input type="submit" value="Cek Out" class="btn btn-sm btn-success">
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
                                 </div>
                             </div>
                         </div>

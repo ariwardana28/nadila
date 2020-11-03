@@ -135,6 +135,7 @@ class PenjualanController extends Controller
 
     public function store(Request $request){
         DB::beginTransaction();
+        //return dd($request);
         try {
             $request->validate([
                 'tanggal',

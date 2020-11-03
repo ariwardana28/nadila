@@ -33,7 +33,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="index.html"><img src="{{asset('web/images/logo.png')}}" alt=""/> </a>
+                <a href="index.html"><img src="{{asset('web/images/logo_copy.png')}}" alt=""/> </a>
             </div>
             <div class="h_icon">
             <ul class="icon1 sub-icon1">
@@ -156,49 +156,55 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     @endif
                 @endif
-                <h2 class="style top">Penjualan</h2>
-                @foreach ($menu as $item)
-                    <div class="grids_of_3">
-                        <div class="grid1_of_3">
-                            <a href="{{route('penjualan.detail',$item->id)}}">
-                               <img src="{{asset('gambar_menu')}}/{{$item->gambar}}" style="width: 150px;hight:150px" alt=""/>
-                            </a>
-                            <br>
-                            <br>
-                            <table class="table table-borderless">
-                                <tr>
-                                    <td>Nama</td>
-                                    <td>:</td>
-                                    <td>{{$item->nama}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Harga</td>
-                                    <td>:</td>
-                                    <td>{{number_format($item->harga)}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Stok</td>
-                                    <td>:</td>
-                                    <td>{{number_format($item->stok)}}</td>
-                                </tr>
-                                <tr>
-                                    <td  colspan="3" >
-                                        <form action="{{route('penjualan.storeBayar')}}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="id_produk" value="{{$item->id}}" class="form-control">
-                                            <input type="hidden" name="id_user" value="{{ Auth::user()->id }}" class="form-control">
-                                            <input type="number" name="qty" class="form-control" required><br>
-                                            <input type="submit" value="Masukkan Keranjang" class="btn btn-sm btn-block btn-primary">
-                                        </form>
-                                        <br>
-                                        <a href="{{route('penjualan.detail',$item->id)}}" class="btn btn-sm btn-block btn-info">Detail</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    {{-- <div class="clear"></div> --}}
-                @endforeach
+{{--                <h2 class="style top">Penjualan</h2>--}}
+                <div class="col-lg-12 row">
+                    @foreach ($menu as $item)
+{{--                        <div class="card-body">--}}
+                            <div class="col-lg-6">
+                                <div class="text-center">
+                                    <a href="{{route('penjualan.detail',$item->id)}}">
+                                        <img src="{{asset('gambar_menu')}}/{{$item->gambar}}" style="width: 300px; height: 300px;" alt=""/>
+                                    </a>
+                                </div>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td>Nama</td>
+                                        <td>:</td>
+                                        <td>{{$item->nama}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Harga</td>
+                                        <td>:</td>
+                                        <td>{{number_format($item->harga)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Stok</td>
+                                        <td>:</td>
+                                        <td>{{number_format($item->stok)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td  colspan="3" >
+                                            <form action="{{route('penjualan.storeBayar')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="id_produk" value="{{$item->id}}" class="form-control">
+                                                <input type="hidden" name="id_user" value="{{ Auth::user()->id }}" class="form-control">
+                                                <input type="number" name="qty" class="form-control" required><br>
+                                                <input type="submit" value="Masukkan Keranjang" class="btn btn-sm btn-block btn-primary">
+                                            </form>
+                                            <br>
+                                            <a href="{{route('penjualan.detail',$item->id)}}" class="btn btn-sm btn-block btn-info">Detail</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+{{--                        </div>--}}
+{{--                        <div class="grids_of_4">--}}
+{{--                            <div class="grid1_of_4">--}}
+
+{{--                            </div>--}}
+{{--                        </div>--}}
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>

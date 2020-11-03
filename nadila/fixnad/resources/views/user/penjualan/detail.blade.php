@@ -10,12 +10,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <title>The Aditii Website Template | Details :: w3layouts</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'> 
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
 <link href="{{asset('web/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
 <!-- start details -->
 <link rel="stylesheet" type="text/css" href="{{asset('web/css/productviewgallery.css')}}" media="all" />
 <link href="{{asset('web/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
-<script src="{{asset('web/js/jquery.min.js')}}"></script> 
+<script src="{{asset('web/js/jquery.min.js')}}"></script>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <script type="text/javascript" src="{{asset('web/js/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('web/js/cloud-zoom.1.0.3.min.js')}}"></script>
@@ -29,7 +29,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script type="text/javascript" src="{{asset('web/js/easing.js')}}"></script>
    <script type="text/javascript">
 		jQuery(document).ready(function($) {
-			$(".scroll").click(function(event){		
+			$(".scroll").click(function(event){
 				event.preventDefault();
 				$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
 			});
@@ -47,12 +47,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="h_icon">
             <ul class="icon1 sub-icon1">
                 <?php $total=0;?>
-                
+
                 @foreach ($bayar as $item)
                     @if ($item->id_user == Auth::user()->id)
                         @foreach ($menu as $mn)
                             @if ($item->id_produk == $mn->id)
-                                <?php $total += $item->qty*$mn->harga ?>  
+                                <?php $total += $item->qty*$mn->harga ?>
                             @endif
                         @endforeach
                     @endif
@@ -69,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <th>Total</th>
                                 <th>Aksi</th>
                             </tr>
-                        
+
                             @foreach ($bayar as $item)
                                 @if ($item->id_user == Auth::user()->id)
                                     @foreach ($menu as $mn)
@@ -89,11 +89,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                     </form>
                                                     {{-- <a href="" class="btn btn-danger btn-sm">-</a> --}}
                                                 </td>
-                                            </tr>            
+                                            </tr>
                                         @endif
                                     @endforeach
                                 @endif
-                               
+
                             @endforeach
                             <tr>
                                 <td colspan="5">
@@ -137,7 +137,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</ul>
 		</div>
 		<div class="top-nav">
-	          <nav class="nav">	        	
+	          <nav class="nav">
 	    	    <a href="#" id="w3-menu-trigger"> </a>
 	                  <ul class="nav-list" style="">
 	            	        <li class="nav-item"><a class="active" href="index.html">Home</a></li>
@@ -151,14 +151,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 	          <div class="clear"> </div>
 	          <script src="js/responsive.menu.js"></script>
-         </div>	
+         </div>
 	<div class="clear"></div>
 </div>
 </div>
 </div>
 <!-- start main -->
 <div class="main_bg">
-<div class="wrap">	
+<div class="wrap">
 	<div class="main">
 	<!-- start content -->
 	<div class="single">
@@ -175,7 +175,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 {{-- <ul>
                                     <li>
                                         <a class="cs-fancybox-thumbs" data-fancybox-group="thumb" style="width:64px;height:85px;" href=""  title="" alt="">
-                                        <img src="" src_main=""  title="" alt="" /></a>            
+                                        <img src="" src_main=""  title="" alt="" /></a>
                                     </li>
                                     <li>
                                         <a class="cs-fancybox-thumbs" data-fancybox-group="thumb" style="width:64px;height:85px;" href=""  title="" alt="">
@@ -183,11 +183,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     </li>
                                     <li>
                                         <a class="cs-fancybox-thumbs" data-fancybox-group="thumb" style="width:64px;height:85px;" href=""  title="" alt="">
-                                        <img src="" src_main=""  title="" alt="" /></a> 
+                                        <img src="" src_main=""  title="" alt="" /></a>
                                     </li>
                                     <li>
                                         <a class="cs-fancybox-thumbs" data-fancybox-group="thumb" style="width:64px;height:85px;" href=""  title="" alt="">
-                                        <img src="" src_main="" title="" alt="" /></a>  
+                                        <img src="" src_main="" title="" alt="" /></a>
                                     </li>
                                     <li>
                                         <a class="cs-fancybox-thumbs" data-fancybox-group="thumb" style="width:64px;height:85px;" href=""  title="" alt="">
@@ -197,14 +197,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </div>
                             </div>
                     <img src="" alt="">
-				    <div class="product-image"> 
+				    <div class="product-image">
 				        <a class="cs-fancybox-thumbs cloud-zoom" rel="adjustX:30,adjustY:0,position:'right',tint:'#202020',tintOpacity:0.5,smoothMove:2,showTitle:true,titleOpacity:0.5" data-fancybox-group="thumb" href="{{asset('gambar_menu')}}/{{$item->gambar}}" title="Women Shorts" alt="Women Shorts">
 				           	<img src="{{asset('gambar_menu')}}/{{$item->gambar}}" alt="Women Shorts" title="Women Shorts" />
 				        </a>
 				   </div>
 				</div>
                 @endforeach
-				
+
 				</div>
 				</div>
 				<!-- end product_slider -->
@@ -224,11 +224,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <input type="submit" class="btn btn-primary" value="Masukkan Keranjang">
                   </form>
                   <h5>Rp.{{number_format($item->harga)}} </h5>
-                
+
                   <section class="tabs" style="width: 400px">
                     <input id="tab-1" type="radio" name="radio-set" class="tab-selector-1" checked="checked">
                     <label for="tab-1" class="tab-label-1">overview</label>
-                    <div class="clear-shadow"></div>        
+                    <div class="clear-shadow"></div>
                     <div class="content">
                         <div class="content-1">
                             <p class="para top"><span>Keterangan</span>
@@ -241,26 +241,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                      <!-- end tabs -->
                    </div>
                    <!-- start sidebar -->
-            
+
                     <!-- end sidebar -->
                   <div class="clear"></div>
-                  </div>	
+                  </div>
               @endforeach
           </section>
                   </div>
                  </div>
                  <div class="clear"></div>
                  <!-- start tabs -->
-        
-			
+
+
 	<!-- end content -->
 	</div>
 </div>
-</div>		
+</div>
 <!-- start footer -->
 <div class="footer_bg">
 
-</div>	
+</div>
 <!-- start footer -->
 <div class="footer_bg1">
 <div class="wrap">
@@ -268,17 +268,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<!-- scroll_top_btn -->
 	    <script type="text/javascript">
 			$(document).ready(function() {
-			
+
 				var defaults = {
 		  			containerID: 'toTop', // fading element id
 					containerHoverID: 'toTopHover', // fading element hover id
 					scrollSpeed: 1200,
-					easingType: 'linear' 
+					easingType: 'linear'
 		 		};
-				
-				
+
+
 				$().UItoTop({ easingType: 'easeOutQuart' });
-				
+
 			});
 		</script>
 		 <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>

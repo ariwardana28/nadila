@@ -14,6 +14,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="{{asset('web/css/style.css')}}" rel="stylesheet" type="text/css" media="all" />
 <script src="{{asset('web/js/jquery.min.js')}}"></script>
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/cryptocoins/cryptocoins.css">
 
 <!-- start top_js_button -->
 <script type="text/javascript" src="{{asset('web/js/move-top.js')}}"></script>
@@ -33,7 +34,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="index.html"><img src="{{asset('web/images/logo.png')}}" alt=""/> </a>
+                <a href="index.html"><img src="{{asset('web/images/logo_copy.png')}}" alt=""/> </a>
             </div>
             <div class="h_icon">
             <ul class="icon1 sub-icon1">
@@ -55,8 +56,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="header_sub">
             <div class="h_menu">
                 <ul class="col-lg-12">
-                    <li><a href="{{url('penjualan')}}">Pesan</a></li> |
-                    <li><a href="{{url('penjualan/create')}}">Konfirmasi</a></li> |
+                    <li><a href="{{url('penjualan/create')}}">Produk</a></li> |
+                    <li><a href="{{url('penjualan')}}">Konfirmasi</a></li> |
                     <li>
                         <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -68,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         @csrf
                                     </form>
                     </li>
-                    <li class="float-right"><a href="{{url('penjualan')}}">Profil</a></li> |
+                    <li class="float-right"><a href="{{url('/penjualan/profile')}}">Profil</a></li> |
                 </ul>
             </div>
             <div class="top-nav">
@@ -86,9 +87,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+@yield('scripts')
 <main class="py-4">
     @yield('content')
 </main>
+
 </body>
 </html>

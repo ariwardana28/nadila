@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Data Pelanggan</div>
+                <div class="card-header">
+                    Data Pelanggan
+{{--                    <div style="float: right">--}}
+{{--                        <a href="{{route('admin')}}" class="btn btn-sm btn-primary">Kembali</a>--}}
+{{--                    </div>--}}
+                </div>
 
                 <div class="card-body">
                     @if (session('status'))

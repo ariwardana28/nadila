@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Menu
+                <div class="card-header">Produk
                     <div style="float: right">
                         <a href="{{route('menu.create')}}" class="btn btn-sm btn-primary">+</a>
                     </div>
@@ -42,11 +42,11 @@
                                                Hapus {{-- <img src="{{asset('h.png')}}" width="20px" height="20px"> --}}
                                             </button>
                                         </form>
-                                        
+
                                     </td>
                                 </tr>
                             @empty
-                                
+
                             @endforelse
                         </tbody>
                     </table>

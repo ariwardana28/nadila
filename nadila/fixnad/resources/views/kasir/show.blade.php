@@ -8,6 +8,9 @@
                 <div class="card-header">
                     Detail Pemesanan
                     <div style="float: right">
+                        <a href="{{route('kasir.penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
+                    </div>
+                    <div style="float: right">
                         @foreach ($penjualan as $item)
                             @if ($item->status == "Mengirim Barang")
                                 <form action="{{route('kasir.kirim',$item->id)}}" method="post" enctype="multipart/form-data">
@@ -75,6 +78,7 @@
                                <th>No</th>
                                <th>Nama Pesanan</th>
                                <th>Qty</th>
+                               <th>Harga Satuan</th>
                                <th>Sub Total</th>
                             </tr>
                         </thead>
@@ -87,6 +91,7 @@
                                             <td>{{$no++}}</td>
                                             <td>{{$item->Menu->nama}}</td>
                                             <td>{{$item->qty}}</td>
+                                            <td>{{$item->Menu->harga}}</td>
                                             <td>Rp.{{number_format($item->subtotal)}}</td>
                                         </tr>
                                     @endif
@@ -95,7 +100,7 @@
                         @endforeach
                         @foreach ($penjualan as $item)
                             <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                     <center><b>Total</b></center>
                                 </td>
                                 <td>Rp. {{number_format($item->total)}}</td>

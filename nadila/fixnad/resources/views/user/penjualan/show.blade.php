@@ -149,50 +149,89 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
 
                 <div class="card-body">
+                    <div class="card-header pt-1 pb-1" style="background-color:#4CCFC1">
+                        <div class="card-title white text-uppercase font-small-4"><span class="badge bg-warning font-medium-4 mr-3"><b>Info</b></span><b> Petunjuk Pembayaran</b></div>
+                    </div>
+                    <div class="m-1">
+                        <p class="text-right"><b>Support By <span><img src="{{asset('bni_logo.png')}}" style="width:6%"></span></b></p>
+                        <p>Silahkan lakukan pembayaran melalui transfer Bank ke rekening <b>Politani Market</b> dengan rincian pembayaran sebagai berikut.</p>
+                        <table class="table">
+                            <tr>
+                                <td><b>No. Rekening</b></td>
+                                <td>:</td>
+                                <td>2138724398234</td>
+                            </tr>
+                            <tr>
+                                <td><b>Bank</b></td>
+                                <td>:</td>
+                                <td>BNI</td>
+                            </tr>
+                            <tr>
+                                <td><b>Atas Nama</b></td>
+                                <td>:</td>
+                                <td>Politani Market</td>
+                            </tr>
+                            @foreach ($penjualan as $item)
+                                <tr>
+                                    <td><b>Nominal</b></td>
+                                    <td>:</td>
+                                    <td>Rp. {{number_format($item->total)}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
 
-
-                    <table class="table table-sm table-borderless">
-                        @foreach ($penjualan as $item)
-                            <tr>
-                                <td style="width: 100px">Nama</td>
-                                <td>:</td>
-                                <td>{{$item->User->name}}</td>
-                            </tr>
-                            <tr>
-                                <td style="width: 100px">Alamat</td>
-                                <td>:</td>
-                                <td>{{$item->alamat}}</td>
-                            </tr>
-                            @if ($item->status !=null)
+                    <div class="card-header pt-1 pb-1" style="background-color:#4CCFC1">
+                        <div class="card-title white text-uppercase font-small-4"><span class="badge bg-warning font-medium-4 mr-3"><b>Info</b></span><b> Detail Pemesanan</b></div>
+                    </div>
+                    <div class="m-1">
+                        <table class="table">
+                            @foreach ($penjualan as $item)
                                 <tr>
+                                    <td><b>Nama</b></td>
+                                    <td>:</td>
+                                    <td>{{$item->User->name}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Alamat</b></td>
+                                    <td>:</td>
+                                    <td>{{$item->alamat}}</td>
+                                </tr>
+                                @if ($item->status !=null)
+                                    <tr>
                                         <td>Status</td>
                                         <td>:</td>
                                         <td><b style="color: green">{{$item->status}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Struk</td>
-                                    <td>:</td>
-                                    <td>
-                                        <img src="{{asset('file')}}/{{$item->foto}}" width="100px" height="100px" alt="">
-                                    </td>
-                                </tr>
-                            @endif
+                                    </tr>
+                                    <tr>
+                                        <td>Struk</td>
+                                        <td>:</td>
+                                        <td>
+                                            <img src="{{asset('file')}}/{{$item->foto}}" width="100px" height="100px" alt="">
+                                        </td>
+                                    </tr>
+                                @endif
 
 
-                        @endforeach
-                    </table>
+                            @endforeach
+                        </table>
+                    </div>
                     <table class="table table-sm table-bordered">
                         <thead>
                             <tr>
-                               <th>No</th>
-                               <th>Nama Pesanan</th>
-                               <th>Qty</th>
-                               <th>Sub Total</th>
+                                <th>No</th>
+                                <th>Nama Pesanan</th>
+                                <th>Qty</th>
+                                <th>Harga Satuan</th>
+                                <th>Sub Total</th>
                             </tr>
                         </thead>
                         <?php $no=1;?>
@@ -201,12 +240,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <td>{{$no++}}</td>
                                 <td>{{$item->Menu->nama}}</td>
                                 <td>{{$item->qty}}</td>
+                                <td>{{$item->Menu->harga}}</td>
                                 <td>Rp.{{number_format($item->subtotal)}}</td>
                             </tr>
                         @endforeach
                         @foreach ($penjualan as $item)
                             <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                     <center><b>Total</b></center>
                                 </td>
                                 <td>Rp. {{number_format($item->total)}}</td>
@@ -217,10 +257,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         @if ($item->foto == null)
                             <form action="{{route('penjualan.bayar',$item->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="file" name="foto" id="" class="form-control" required>
+                                <div class="form-group card-body rounded bg-warning pl-1">
+                                    <label class="ml-2"><b>Silahkan Upload Bukti Pembayaran disini:</b></label>
+                                    <div class="ml-2">
+                                        <input type="file" name="foto" id="" required>
+                                    </div>
+                                </div>
                                 <input type="hidden" name="status" id="" value="Sedang diproses" class="form-control" >
                                 <br>
-                                <input type="submit" value="Submit" class="btn btn-sm btn-success">
+                                <input style="background-color:#4CCFC1" class="btn float-right" type="submit" value="Konfirmasi Pembayaran" class="btn btn-sm btn-success">
                             </form>
                         @endif
                     @endforeach
