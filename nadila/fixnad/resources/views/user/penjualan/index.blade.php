@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>The Aditii Website Template | Details :: w3layouts</title>
+<title>PHH Market | Politani</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
@@ -35,7 +35,7 @@
         <div class="wrap">
             <div class="header">
                 <div class="logo">
-                    <a href="index.html"><img src="{{asset('web/images/logo.png')}}" alt=""/> </a>
+                    <a href="index.html"><img src="{{asset('web/images/logo_copy.png')}}" alt=""/> </a>
                 </div>
                 <div class="h_icon">
                 <ul class="icon1 sub-icon1">
@@ -123,7 +123,7 @@
                                             @csrf
                                         </form>
                         </li>
-                        <li class="float-right"><a href="{{url('penjualan')}}">Profil</a></li> |
+                        <li class="float-right"><a href="{{url('penjualan/profile')}}">Profil</a></li> |
                     </ul>
                 </div>
                 <div class="top-nav">

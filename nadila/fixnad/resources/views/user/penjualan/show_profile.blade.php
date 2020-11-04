@@ -32,7 +32,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="index.html"><img src="{{asset('web/images/logo.png')}}" alt=""/> </a>
+                <a href="index.html"><img src="{{asset('web/images/logo_copy.png')}}" alt=""/> </a>
             </div>
             <div class="h_icon">
             </div>
