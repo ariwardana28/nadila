@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>The Aditii Website Template | Accessories :: w3layouts</title>
+<title>PHH Market | Politani</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
@@ -33,7 +33,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="index.html"><img src="{{asset('web/images/logo.png')}}" alt=""/> </a>
+                <a href="index.html"><img src="{{asset('web/images/logo_copy.png')}}" alt=""/> </a>
             </div>
             <div class="h_icon">
             <ul class="icon1 sub-icon1">
@@ -107,7 +107,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="h_menu">
                 <ul>
                     <li><a href="{{url('penjualan/create')}}">Produk</a></li> |
-                    <li><a href="{{url('penjualan')}}">Pesan</a></li> |
+                    <li><a href="{{url('penjualan')}}">Konfirmasi</a></li> |
                     <li>
                         <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

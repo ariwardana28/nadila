@@ -50,7 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 @endforeach
                 <li><a class="active-icon c1" href="#"><i>Rp.{{number_format($total)}}</i></a>
                     <ul class="sub-icon1 list">
-                        <li><h3>Produk THH</h3><a href=""></a></li>
+                        <li><h3>Produk PHH</h3><a href=""></a></li>
                         <?php $no=1;?>
                         <table class="table table-sm">
                             <tr>
