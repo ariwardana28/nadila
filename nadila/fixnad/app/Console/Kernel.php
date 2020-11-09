@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        //Commands\testingCheckOrderCount::class,
+        Commands\updateExpiredOrder::class
     ];
 
     /**
@@ -26,6 +27,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        //$schedule->command('order:updateCancel')->daily();
+        $schedule->command('order:expired')->everyMinute();
+        $schedule->command('testing:orderCount')->everyMinute();
     }
 
     /**
