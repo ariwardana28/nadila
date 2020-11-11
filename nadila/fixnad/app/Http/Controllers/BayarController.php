@@ -6,28 +6,14 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\model\Menu;
 use App\model\Bayar;
-use Auth;
 use Illuminate\Support\Facades\DB;
 
 class BayarController extends Controller
 {
     public function index(){
-        $now = Carbon::now()->format('Y-m-d');
-        // echo $now.'<br>';
-        $id = Auth::user()->id ;
-        $bayar = Bayar::all();
-        foreach ($bayar as $key) {
-            if($key->id_user == $id){
-               $tgl = date('Y-m-d', strtotime('+3 days', strtotime($key->created_at)));
-               if($tgl == $now){
-                   Bayar::where('id_user',$id)->delete();
-                   return redirect('/home');
-                   
-               }
-            }
-        }
         $now = 0;
         $menu = Menu::all();
+        $bayar = Bayar::all();
         return view('welcome',compact('menu','now','bayar'));
     }
 
