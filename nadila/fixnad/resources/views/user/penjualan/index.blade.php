@@ -162,24 +162,47 @@
                         <tbody>
                             <?php $no=1;?>
                             @foreach ($penjualan as $item)
+                                <?php 
+                                    $tgl = date('Y-m-d', strtotime('+3 days', strtotime($item->tanggal)));
+                                ?>
                                 @if ($item->id_user == Auth::user()->id)
-                                  <tr>
-                                    <td>{{$no++}}</td>
-                                    <td>{{date('d F Y', strtotime($item->tanggal))}}</td>
-                                    <td>{{$item->alamat}}</td>
-                                    <td>Rp. {{$item->total}}</td>
-                                    <td>
-                                        @if ($item->status == null)
-                                            <b style="color: red">Belum Bayar</b>
-                                        @else
-                                            <b style="color: green">{{$item->status}}</b>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{route('penjualan.show',$item->id)}}" class="btn btn-primary btn-sm">Detail Pesanan</a>
-                                    </td>
-                                </tr>
-
+                                    @if ($tgl >= $now && $item->status == null)
+                                    <tr>
+                                        <td>{{$no++}}</td>
+                                        <td>{{date('d F Y', strtotime($item->tanggal))}}</td>
+                                        <td>{{$item->alamat}}</td>
+                                        <td>Rp. {{$item->total}}</td>
+                                        <td>
+                                            @if ($item->status == null)
+                                                <b style="color: red">Belum Bayar</b>
+                                            @else
+                                                <b style="color: green">{{$item->status}}</b>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{route('penjualan.show',$item->id)}}" class="btn btn-primary btn-sm">Detail Pesanan</a>
+                                        </td>
+                                    </tr>  
+                                   
+                                    @elseif($tgl <= $now && $item->status != null)  
+                                    <tr>
+                                        <td>{{$no++}}</td>
+                                        <td>{{date('d F Y', strtotime($item->tanggal))}}</td>
+                                        <td>{{$item->alamat}}</td>
+                                        <td>Rp. {{$item->total}}</td>
+                                        <td>
+                                            @if ($item->status == null)
+                                                <b style="color: red">Belum Bayar</b>
+                                            @else
+                                                <b style="color: green">{{$item->status}}</b>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{route('penjualan.show',$item->id)}}" class="btn btn-primary btn-sm">Detail Pesanan</a>
+                                        </td>
+                                    </tr>       
+                                    @endif
+                              
                                 @endif
                             @endforeach
 

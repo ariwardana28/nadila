@@ -25,12 +25,13 @@ class PenjualanController extends Controller
     }
 
     public function index(){
+        $now = Carbon::now()->format('Y-m-d');
         $penjualan = Penjualan::orderBy('tanggal', 'desc')->get();
         $DetailPenjualan = DetailPenjualan::orderBy('tanggal', 'desc')->get();
         $bayar = Bayar::where('id_user',Auth::user()->id)->get();
         //return $bayar;
         $menu = Menu::all();
-        return view('user.penjualan.index',compact('penjualan','DetailPenjualan','bayar','menu'));
+        return view('user.penjualan.index',compact('penjualan','DetailPenjualan','bayar','menu','now'));
     }
 
     public function detail($id){
