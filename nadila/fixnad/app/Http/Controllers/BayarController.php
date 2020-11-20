@@ -52,13 +52,21 @@ class BayarController extends Controller
         try{
             DB::beginTransaction();
             $bayars = Bayar::find($id);
-            $newQty = $bayars->qty - 1;
-            $bayars->update(['qty'=>$newQty]);
+            if($bayars->qty>0){
+                $newQty = $bayars->qty - 1;
+                $bayars->update(['qty'=>$newQty]);
 
-            $menus = Menu::find($bayars->id_produk);
-            $new_stok = (int)$menus->stok + 1;
-            $menus->stok = $new_stok;
-
+                $menus = Menu::find($bayars->id_produk);
+                $new_stok = (int)$menus->stok + 1;
+                $menus->stok = $new_stok;
+            }else{
+                return redirect(url('penjualan/menuBayar'))
+                    ->with([
+                        'menu'=>$menu,
+                        'now'=>$now,
+                        'bayar'=>$bayar
+                    ]);
+            }
             DB::commit();
         }catch (\Exception $e){
             DB::rollBack();

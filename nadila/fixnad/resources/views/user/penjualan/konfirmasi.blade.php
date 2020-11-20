@@ -187,29 +187,23 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Daftar Transaksi <br>
-                    <button class="tablink" onclick="openPage('Home', this, 'red')" id="defaultOpen">Belum Bayar</button>
-                    <button class="tablink" onclick="openPage('News', this, 'green')" >Di Kemas</button>
-                    <button class="tablink" onclick="openPage('Contact', this, 'blue')">Di Kirim</button>
-                    <button class="tablink" onclick="openPage('About', this, 'orange')">Selesai</button>
+                  
                 </div>
                     <div class="card-body">                
-                        <div id="Home" class="tabcontent">
-                            <h3>Belum Bayar</h3>
-                        
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th>Alamat</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no=1;?>
-                                    @foreach ($penjualan as $item)
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Alamat</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no=1;?>
+                                @foreach ($penjualan as $item)
                                     <?php 
                                         $tgl = date('Y-m-d', strtotime('+3 days', strtotime($item->tanggal)));
                                     ?>
@@ -228,7 +222,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{url('penjualan/show')}}/{{$item->id}}?id=belum" class="btn btn-primary btn-sm">Detail Pesanan</a>
+                                                <a href="{{url('penjualan/show')}}/{{$item->id}}?id=belum&data=konfir" class="btn btn-primary btn-sm">Detail Pesanan</a>
                                             </td>
                                         </tr>  
                                        
@@ -246,147 +240,17 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{url('penjualan/show')}}/{{$item->id}}?id=belum" class="btn btn-primary btn-sm">Detail Pesanan</a>
+                                                <a href="{{url('penjualan/show')}}/{{$item->id}}?id=konfir" class="btn btn-primary btn-sm">Detail Pesanan</a>
                                             </td>
                                         </tr>       
                                         @endif
                                   
                                     @endif
                                 @endforeach
-                            
-                            
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div id="News" class="tabcontent">
-                            <h3>Di Kemas</h3>
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th>Alamat</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no=1;?>
-                                    @foreach ($penjualan as $item)
-                                        @if ($item->id_user == Auth::user()->id)
-                                            @if($item->status == 'Sedang diproses')  
-                                            <tr>
-                                                <td>{{$no++}}</td>
-                                                <td>{{date('d F Y', strtotime($item->tanggal))}}</td>
-                                                <td>{{$item->alamat}}</td>
-                                                <td>Rp. {{$item->total}}</td>
-                                                <td>
-                                                    @if ($item->status == null)
-                                                        <b style="color: red">Belum Bayar</b>
-                                                    @else
-                                                        <b style="color: green">{{$item->status}}</b>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{url('penjualan/show')}}/{{$item->id}}?id=belum_bayar" class="btn btn-primary btn-sm">Detail Pesanan</a>
-                                                </td>
-                                            </tr>       
-                                            @endif
-                                        @endif
-                                    @endforeach
-                            
-                            
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div id="Contact" class="tabcontent">
-                            <h3>Di Kirim</h3>
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th>Alamat</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no=1;?>
-                                    @foreach ($penjualan as $item)
-                                        @if ($item->id_user == Auth::user()->id)
-                                            @if($item->status == 'Mengirim Barang')  
-                                            <tr>
-                                                <td>{{$no++}}</td>
-                                                <td>{{date('d F Y', strtotime($item->tanggal))}}</td>
-                                                <td>{{$item->alamat}}</td>
-                                                <td>Rp. {{$item->total}}</td>
-                                                <td>
-                                                    @if ($item->status == null)
-                                                        <b style="color: red">Belum Bayar</b>
-                                                    @else
-                                                        <b style="color: green">{{$item->status}}</b>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{url('penjualan/show')}}/{{$item->id}}?id=belum_bayar" class="btn btn-primary btn-sm">Detail Pesanan</a>
-                                                </td>
-                                            </tr>       
-                                            @endif
-                                        @endif
-                                    @endforeach
-                            
-                            
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div id="About" class="tabcontent">
-                            <h3>Selesai</h3>
-                            <table class="table table-sm table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th>Alamat</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no=1;?>
-                                    @foreach ($penjualan as $item)
-                                        @if ($item->id_user == Auth::user()->id)
-                                            @if($item->status == 'Selesai')  
-                                            <tr>
-                                                <td>{{$no++}}</td>
-                                                <td>{{date('d F Y', strtotime($item->tanggal))}}</td>
-                                                <td>{{$item->alamat}}</td>
-                                                <td>Rp. {{$item->total}}</td>
-                                                <td>
-                                                    @if ($item->status == null)
-                                                        <b style="color: red">Belum Bayar</b>
-                                                    @else
-                                                        <b style="color: green">{{$item->status}}</b>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{url('penjualan/show')}}/{{$item->id}}?id=belum_bayar" class="btn btn-primary btn-sm">Detail Pesanan</a>
-                                                </td>
-                                            </tr>       
-                                            @endif
-                                        @endif
-                                    @endforeach
-                            
-                            
-                                </tbody>
-                            </table>
-                        </div>
+                        
+                        
+                            </tbody>
+                        </table>
 
 
                 </div>
@@ -394,22 +258,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function openPage(pageName,elmnt,color) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].style.backgroundColor = "";
-    }
-    document.getElementById(pageName).style.display = "block";
-    elmnt.style.backgroundColor = color;
-    }
-
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-</script>

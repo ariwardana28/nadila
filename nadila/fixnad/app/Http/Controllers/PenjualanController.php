@@ -34,6 +34,16 @@ class PenjualanController extends Controller
         return view('user.penjualan.index',compact('penjualan','DetailPenjualan','bayar','menu','now'));
     }
 
+    public function konfirmasi(){
+        $now = Carbon::now()->format('Y-m-d');
+        $penjualan = Penjualan::orderBy('tanggal', 'desc')->get();
+        $DetailPenjualan = DetailPenjualan::orderBy('tanggal', 'desc')->get();
+        $bayar = Bayar::where('id_user',Auth::user()->id)->get();
+        //return $bayar;
+        $menu = Menu::all();
+        return view('user.penjualan.konfirmasi',compact('penjualan','DetailPenjualan','bayar','menu','now'));
+    }
+
     public function detail($id){
         $detail = Menu::where('id',$id)->get();
         $bayar = Bayar::all();
@@ -50,7 +60,7 @@ class PenjualanController extends Controller
             // dd($pay);
             $menus = Menu::where('id', $input['id_produk'])->first();
             if ($input['qty']> $menus->stok){
-                return redirect(url('penjualan/detail/'.$result.'?nama=habis'));
+                return redirect(url('penjualan/create'));
             }
             if ($input['id_produk'] == $pay->id_produk){
                 $new_stoks = (int)$pay->qty + (int)$input['qty'];
@@ -66,9 +76,9 @@ class PenjualanController extends Controller
             $new = (int)$menus->harga_beli+0;
             $menus->stok = $new_stok;
             $menus->save();
-            return redirect(url('penjualan/detail/'.$result.'?nama=sukses'));
+            return redirect(url('penjualan/create'));
         }
-        else{
+        elseif($bayar->id_produk ==null){
             $result = $input['id_produk'];
             $menus = Menu::where('id', $input['id_produk'])->first();
             if ($input['qty']> $menus->stok){
@@ -84,7 +94,7 @@ class PenjualanController extends Controller
             $new = (int)$menus->harga_beli+0;
             $menus->stok = $new_stok;
             $menus->save();
-            return redirect(url('penjualan/detail/'.$result.'?nama=sukses'));
+            return redirect(url('penjualan'));
         }
     }
 
@@ -191,7 +201,7 @@ class PenjualanController extends Controller
        // dd( $result);
 
        //return redirect(route('pembelians.index'));
-       return redirect(route('penjualan.show', $result));
+       return redirect(url('penjualan/show/'.$result.'?id=belum'));
     }
 
     public function show($id){
@@ -234,12 +244,10 @@ class PenjualanController extends Controller
         $new = (int)$menus->harga_beli+0;
         $menus->stok = $new_stok;
         DB::table('bayars')->where('id',$id)->delete();
-        return redirect('/penjualan/detail/'.$input['id_produk']);
+        return redirect('penjualan/create');
+    }
 
-
-     }
-
-     public function profile(){
+    public function profile(){
         $profile = User::find(Auth::user()->id);
         return view('user.penjualan.show_profile',compact('profile'));
      }

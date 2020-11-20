@@ -109,7 +109,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="h_menu">
                 <ul>
                     <li><a href="{{url('penjualan/create')}}">Produk</a></li> |
-                    <li><a href="{{url('penjualan')}}">Konfirmasi</a></li> |
+                    <li><a href="{{url('penjualan/konfirmasi')}}">Konfirmasi</a></li> |
+                    <li><a href="{{url('penjualan')}}">Histori</a></li> |
                     <li>
                         <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -188,8 +189,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                 @csrf
                                                 <input type="hidden" name="id_produk" value="{{$item->id}}" class="form-control">
                                                 <input type="hidden" name="id_user" value="{{ Auth::user()->id }}" class="form-control">
-                                                <input type="number" name="qty" class="form-control" required><br>
-                                                <input type="submit" value="Masukkan Keranjang" class="btn btn-sm btn-block btn-primary">
+                                                <input type="number" min="0" max="{{$item->stok}}" name="qty" class="form-control" required><br>
+                                                <input type="submit"  value="Masukkan Keranjang" class="btn btn-sm btn-block btn-primary">
                                             </form>
                                             <br>
                                             <a href="{{route('penjualan.detail',$item->id)}}" class="btn btn-sm btn-block btn-info">Detail</a>

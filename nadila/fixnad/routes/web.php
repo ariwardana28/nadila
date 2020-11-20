@@ -37,6 +37,7 @@ Route::prefix('/menu')->group(function(){
 // penjualan User
 Route::prefix('/penjualan')->group(function(){
     Route::get('/','PenjualanController@index')->name('penjualan.index');
+    Route::get('/konfirmasi','PenjualanController@konfirmasi')->name('penjualan.konfirmasi');
     Route::get('/create','PenjualanController@create')->name('penjualan.create');
     Route::post('/store','PenjualanController@store')->name('penjualan.store');
     Route::post('/storeBayar','PenjualanController@storeBayar')->name('penjualan.storeBayar');

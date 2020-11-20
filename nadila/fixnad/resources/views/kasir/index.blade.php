@@ -27,11 +27,10 @@
                        <tbody>
                            @foreach ($penjualan as $item)
                                    <tr>
-                                       <td>
+                                       
                                         <?php 
-                                            echo $tgl = date('Y-m-d', strtotime('+3 days', strtotime($key->created_at)));
-                                        ?>d
-                                       </td>
+                                            // echo $tgl = date('Y-m-d', strtotime('+3 days', strtotime($item->created_at)));
+                                        ?>
                                         <td>{{$no++}}</td>
                                         <td>{{$item->User->name}}</td>
                                         <td>

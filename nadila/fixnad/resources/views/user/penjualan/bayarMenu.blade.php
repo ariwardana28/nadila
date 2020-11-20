@@ -107,7 +107,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="h_menu">
                 <ul>
                     <li><a href="{{url('penjualan/create')}}">Produk</a></li> |
-                    <li><a href="{{url('penjualan')}}">Konfirmasi</a></li> |
+                    <li><a href="{{url('penjualan/konfirmasi')}}">Konfirmasi</a></li> |
+                    <li><a href="{{url('penjualan')}}">Histori</a></li> |
                     <li>
                         <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -119,6 +120,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         @csrf
                                     </form>
                     </li>
+                    <li class="float-right"><a href="{{route('profile')}}">Profil</a></li> |
                 </ul>
             </div>
             <div class="top-nav">
@@ -239,7 +241,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             <tr>
                                                 <td colspan="5">
                                                     <center>
-                                                        <input type="submit" value="Cek Out" class="btn btn-sm btn-success">
+                                                        <input type="submit" value="Buat Pesanan" class="btn btn-sm btn-success">
                                                     </center>
                                                 </td>
                                             </tr>

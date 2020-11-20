@@ -123,7 +123,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="h_menu">
 			<ul>
                 <li><a href="{{url('penjualan/create')}}">Produk</a></li> |
-                <li><a href="{{url('penjualan')}}">Konfirmasi</a></li> |
+                <li><a href="{{url('penjualan/konfirmasi')}}">Konfirmasi</a></li> |
+                <li><a href="{{url('penjualan')}}">Histori</a></li> |
                 <li>
                     <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

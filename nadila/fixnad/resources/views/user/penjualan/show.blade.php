@@ -108,18 +108,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="h_menu">
                 <ul>
                     <li><a href="{{url('penjualan/create')}}">Produk</a></li> |
-                    <li><a href="{{url('penjualan')}}">Konfirmasi</a></li> |
+                    <li><a href="{{url('penjualan/konfirmasi')}}">Konfirmasi</a></li> |
+                    <li><a href="{{url('penjualan')}}">Histori</a></li> |
                     <li>
-                        <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </li>
+                    <li class="float-right"><a href="{{route('profile')}}">Profil</a></li> |
                 </ul>
             </div>
             <div class="top-nav">
@@ -144,11 +143,63 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="card-header">
                     Konfirmasi Pembayaran
                     <div style="float: right">
-                        <a href="{{url('/penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
+                        @if (isset($_GET['id']))
+                            @if (isset($_GET['data']))
+                                @if ($_GET['data']=='konfir')
+                                    <a href="{{url('/penjualan/konfirmasi')}}" class="btn btn-sm btn-primary">Kembali</a>
+                                @else
+                                    <a href="{{url('/penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
+                                @endif
+                            @else
+                                @if ($_GET['id']=='konfir')
+                                    <a href="{{url('/penjualan/konfirmasi')}}" class="btn btn-sm btn-primary">Kembali</a>
+                                @else
+                                    <a href="{{url('/penjualan')}}" class="btn btn-sm btn-primary">Kembali</a>
+                                @endif
+                            
+                            @endif
+                        @endif
                     </div>
                 </div>
 
                 <div class="card-body">
+                    @if (isset($_GET['id']))
+                        @if($_GET['id']=='belum')
+                            <div class="card-header pt-1 pb-1" style="background-color:#4CCFC1">
+                                <div class="card-title white text-uppercase font-small-4"><span class="badge bg-warning font-medium-4 mr-3"><b>Info</b></span><b> Petunjuk Pembayaran</b></div>
+                            </div>
+                            <div class="m-1">
+                                <p class="text-right"><b>Support By <span><img src="{{asset('bni_logo.png')}}" style="width:6%"></span></b></p>
+                                <p>Silahkan lakukan pembayaran melalui transfer Bank ke rekening <b>Politani Market</b> dengan rincian pembayaran sebagai berikut.</p>
+                                <table class="table">
+                                    <tr>
+                                        <td><b>No. Rekening</b></td>
+                                        <td>:</td>
+                                        <td>2138724398234</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Bank</b></td>
+                                        <td>:</td>
+                                        <td>BNI</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Atas Nama</b></td>
+                                        <td>:</td>
+                                        <td>Politani Market</td>
+                                    </tr>
+                                    @foreach ($penjualan as $item)
+                                        <tr>
+                                            <td><b>Nominal</b></td>
+                                            <td>:</td>
+                                            <td>Rp. {{number_format($item->total)}}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                            @elseif($_GET['id']=='konfir')
+                                
+                            @endif
+                    @else
                     <div class="card-header pt-1 pb-1" style="background-color:#4CCFC1">
                         <div class="card-title white text-uppercase font-small-4"><span class="badge bg-warning font-medium-4 mr-3"><b>Info</b></span><b> Petunjuk Pembayaran</b></div>
                     </div>
@@ -181,7 +232,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         </table>
                     </div>
                 </div>
-
+                @endif
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -253,22 +304,46 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </tr>
                         @endforeach
                     </table>
-                    @foreach ($penjualan as $item)
-                        @if ($item->foto == null)
-                            <form action="{{route('penjualan.bayar',$item->id)}}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group card-body rounded bg-warning pl-1">
-                                    <label class="ml-2"><b>Silahkan Upload Bukti Pembayaran disini:</b></label>
-                                    <div class="ml-2">
-                                        <input type="file" name="foto" id="" required>
+                    @if (isset($_GET['id']))
+                       @if ($_GET['id']=='konfir')
+                            @foreach ($penjualan as $item)
+                                @if ($item->foto == null)
+                                    <form action="{{route('penjualan.bayar',$item->id)}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group card-body rounded bg-warning pl-1">
+                                            <label class="ml-2"><b>Silahkan Upload Bukti Pembayaran disini:</b></label>
+                                            <div class="ml-2">
+                                                <input type="file" name="foto" id="" required>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="status" id="" value="Sedang diproses" class="form-control" >
+                                        <br>
+                                        <input style="background-color:#4CCFC1" class="btn float-right" type="submit" value="Konfirmasi Pembayaran" class="btn btn-sm btn-success">
+                                    </form>
+                                @endif
+                            @endforeach
+                       @else
+                           
+                       @endif
+                    @else
+                        @foreach ($penjualan as $item)
+                            @if ($item->foto == null)
+                                <form action="{{route('penjualan.bayar',$item->id)}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group card-body rounded bg-warning pl-1">
+                                        <label class="ml-2"><b>Silahkan Upload Bukti Pembayaran disini:</b></label>
+                                        <div class="ml-2">
+                                            <input type="file" name="foto" id="" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <input type="hidden" name="status" id="" value="Sedang diproses" class="form-control" >
-                                <br>
-                                <input style="background-color:#4CCFC1" class="btn float-right" type="submit" value="Konfirmasi Pembayaran" class="btn btn-sm btn-success">
-                            </form>
-                        @endif
-                    @endforeach
+                                    <input type="hidden" name="status" id="" value="Sedang diproses" class="form-control" >
+                                    <br>
+                                    <input style="background-color:#4CCFC1" class="btn float-right" type="submit" value="Konfirmasi Pembayaran" class="btn btn-sm btn-success">
+                                </form>
+                            @endif
+                        @endforeach
+                    @endif
+                    
                 </div>
             </div>
         </div>
