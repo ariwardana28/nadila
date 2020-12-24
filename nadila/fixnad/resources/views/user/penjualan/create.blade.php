@@ -157,9 +157,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     @endif
                 @endif
+                <div class="col-lg ">
+                    <form action="/cari" method="GET">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td>
+                                    <input type="text" name="cari" placeholder="Cari Produk" class="form-control" value="{{ old('cari') }}">
+                                </td>
+                                <td>
+                                    <input type="submit" value="CARI" class="btn btn-primary">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <br>
 {{--                <h2 class="style top">Penjualan</h2>--}}
-                <div class="col-lg-12 row">
-                    @foreach ($menu as $item)
+                    <div class="col-lg-12 row">
+                        @foreach ($menu as $item)
 {{--                        <div class="card-body">--}}
                             <div class="col-lg-6">
                                 <div class="text-center">
@@ -204,8 +219,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 {{--                            </div>--}}
 {{--                        </div>--}}
-                    @endforeach
-                </div>
+                         @endforeach
+                    </div>
             </div>
         </div>
     </div>

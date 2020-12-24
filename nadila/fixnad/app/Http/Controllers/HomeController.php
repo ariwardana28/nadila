@@ -6,6 +6,7 @@ use App\model\Bayar;
 use App\model\Menu;
 use Carbon\Carbon;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -43,4 +44,17 @@ class HomeController extends Controller
         $bayar = Bayar::all();
         return view('user.penjualan.create',compact('menu','now','bayar'));
     }
+
+    public function cari(Request $request)
+	{
+		$cari = $request->cari;
+        $now = Carbon::now()->format('Y-m-d');
+        $bayar = Bayar::all();
+		$menu = DB::table('menus')
+		->where('nama','like',"%".$cari."%")
+		->paginate();
+ 
+		return view('cari',compact('menu','now','bayar'));
+ 
+	}
 }

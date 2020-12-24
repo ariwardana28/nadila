@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -32,6 +33,7 @@
                                             // echo $tgl = date('Y-m-d', strtotime('+3 days', strtotime($item->created_at)));
                                         ?>
                                         <td>{{$no++}}</td>
+                                        <td>{{ date('d F Y', strtotime($item->tanggal))}}</td>
                                         <td>{{$item->User->name}}</td>
                                         <td>
                                             @if(empty($item->status) || $item->status == null)
@@ -47,6 +49,9 @@
                            @endforeach
                        </tbody>
                     </table>
+                </div>
+                <div style="float: right">
+                    {{$penjualan->render()}}
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@ class KasirController extends Controller
         $users =$request->user;
 
         $now = Carbon::now()->format('Y-m-d');
-        $penjualan = Penjualan::all(); 
+        $penjualan = Penjualan::orderByRaw('id DESC')->paginate(10); 
         $menu = Menu::all(); 
         $user = User::all();
        

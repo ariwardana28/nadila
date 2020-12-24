@@ -23,6 +23,7 @@ Route::get('/getUsers/{id}','MenuController@getUsers');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/cari', 'HomeController@cari')->name('cari');
 
 // Menu
 Route::prefix('/menu')->group(function(){
