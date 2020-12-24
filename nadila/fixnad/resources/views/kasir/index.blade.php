@@ -28,7 +28,6 @@
                        <tbody>
                            @foreach ($penjualan as $item)
                                    <tr>
-                                       
                                         <?php 
                                             // echo $tgl = date('Y-m-d', strtotime('+3 days', strtotime($item->created_at)));
                                         ?>

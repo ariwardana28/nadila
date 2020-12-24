@@ -34,11 +34,41 @@ class PenjualanController extends Controller
         return view('user.penjualan.index',compact('penjualan','DetailPenjualan','bayar','menu','now'));
     }
 
-    public function konfirmasi(){
-        $now = Carbon::now()->format('Y-m-d');
-        $penjualan = Penjualan::orderBy('tanggal', 'desc')->get();
-        $DetailPenjualan = DetailPenjualan::orderBy('tanggal', 'desc')->get();
-        $bayar = Bayar::where('id_user',Auth::user()->id)->get();
+    public function konfirmasi(Request $request){
+        DB::beginTransaction();
+        try {
+            $now = Carbon::now()->format('Y-m-d');
+            $penjualan = Penjualan::orderBy('tanggal', 'desc')->get();
+            $DetailPenjualan = DetailPenjualan::orderBy('tanggal', 'desc')->get();
+            $bayar = Bayar::where('id_user',Auth::user()->id)->get();
+            foreach ($penjualan as $item) {
+                $tgl = date('Y-m-d', strtotime('+3 days', strtotime($item->tanggal)));
+                $det = DetailPenjualan::where('id_penjualan', $item->id)->get();
+                // $aw = $det->id_menu;
+                foreach ($det as $key ) {
+                    $menus = Menu::where('id', $key->id_menu)->first();
+                    if($tgl <= $now){
+                        $new_stok = $menus->stok + $key->qty;
+                        $menus->stok = $new_stok;
+                        $menus->save();
+                        // DB::table('detail_penjualan')->where('id_penjualan',$item->id)->delete();
+                        // DB::table('penjualan')->where('id',$item->id)->delete();
+                    }
+                }
+                if($tgl <= $now){
+                    // $new_stok = $menu->stok + $det->qty;
+                    // $menu->stok = $new_stok;
+                    // $menu->save();
+                    DB::table('detail_penjualans')->where('id_penjualan',$item->id)->delete();
+                    DB::table('penjualans')->where('id',$item->id)->delete();
+                }
+
+            }
+            DB::commit();
+            } catch (Exception $e) {
+                DB::rollBack();
+            }
+        
         //return $bayar;
         $menu = Menu::all();
         return view('user.penjualan.konfirmasi',compact('penjualan','DetailPenjualan','bayar','menu','now'));
